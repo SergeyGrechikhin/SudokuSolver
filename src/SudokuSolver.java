@@ -4,7 +4,7 @@ public class SudokuSolver {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        boolean firstCase = true;
+        boolean addBlankLine = true;
 
         // Die Schleife wird fortgesetzt, solange ein Wert n eingelesen wird.
         while (sc.hasNextInt()) {
@@ -23,10 +23,10 @@ public class SudokuSolver {
 
 
             // Vor jedem Test außer dem ersten wird eine Leerzeile ausgegeben.
-            if (!firstCase) {
+            if (!addBlankLine) {
                 System.out.println();
             }
-            firstCase = false;
+            addBlankLine = false;
 
             // Start des Algorithmus zur Lösung
             if (solve(board, n)) {
@@ -80,7 +80,7 @@ public class SudokuSolver {
     private static boolean isValid(int[][] board, int row, int col, int num, int n) {
         int size = n * n;
 
-        // Anfangskoordinaten des n×n-Teilblocks, zu dem die Zelle (row, col) gehört
+        //Anfangskoordinaten des n×n-Teilblocks, zu dem die Zelle (row, col) gehört
         //Zeilenindex - Row
         //Spaltenindex - Col
         int startRow = (row / n) * n;
