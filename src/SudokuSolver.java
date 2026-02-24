@@ -4,14 +4,11 @@ public class SudokuSolver {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        boolean addBlankLine = true;
-
         // Die Schleife wird fortgesetzt, solange ein Wert n eingelesen wird.
         while (sc.hasNextInt()) {
             int n = sc.nextInt();
             int size = n * n; // Gesamtlänge der Gitterseite
             int[][] board = new int[size][size];
-
 
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
@@ -21,18 +18,11 @@ public class SudokuSolver {
                 }
             }
 
-
-            // Vor jedem Test außer dem ersten wird eine Leerzeile ausgegeben.
-            if (!addBlankLine) {
-                System.out.println();
-            }
-            addBlankLine = false;
-
             // Start des Algorithmus zur Lösung
             if (solve(board, n)) {
                 printBoard(board);
             } else {
-                System.out.println("NO SOLUTION");
+                printNoSolution();
             }
         }
         sc.close();
@@ -59,8 +49,8 @@ public class SudokuSolver {
                             if (solve(board, n)) {
                                 return true; // Falls eine Lösung gefunden wird, wird true zurückgegeben.
                             }
-
-                            // Falls eine Lösung gefunden wird, wird true zurückgegeben.
+                            /* Backtracking: Wenn keine der Zahlen zum Erfolg führt, wird die Zelle
+                            zurückgesetzt (auf 0), um einen anderen Weg in der Rekursion zu probieren.*/
                             board[row][col] = 0;
                         }
                     }
@@ -104,16 +94,24 @@ public class SudokuSolver {
      * Gibt das Gitter aus.
      */
     private static void printBoard(int[][] board) {
+        System.out.println();
         for (int i = 0; i < board.length; i++) {
-            StringBuilder rowOutput = new StringBuilder();
+            StringBuilder output = new StringBuilder();
             for (int j = 0; j < board[i].length; j++) {
-                rowOutput.append(board[i][j]);
+                output.append(board[i][j]);
                 if (j < board[i].length - 1) {
-                    rowOutput.append(" ");
+                    output.append(" ");
                 }
             }
-            System.out.println(rowOutput);
+            System.out.println(output);
         }
+        System.out.println();
+    }
+
+    private static void printNoSolution() {
+        System.out.println();
+        System.out.println("NO SOLUTION");
+        System.out.println();
     }
 }
 
